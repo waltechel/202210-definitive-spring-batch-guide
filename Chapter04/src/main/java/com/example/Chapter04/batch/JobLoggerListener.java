@@ -20,8 +20,12 @@ import org.springframework.batch.core.annotation.AfterJob;
 import org.springframework.batch.core.annotation.BeforeJob;
 
 /**
+ * 잡 리스너를 작성하는 두 가지 방법이 있다. 첫번째는 JobExecutionListener 인터페이스를 구현하는 방법이다.
+ */
+/**
  * @author Michael Minella
  */
+//예제 4-22
 //public class JobLoggerListener implements JobExecutionListener {
 //
 //	private static String START_MESSAGE = "%s is beginning execution";
@@ -42,6 +46,8 @@ import org.springframework.batch.core.annotation.BeforeJob;
 //	}
 //}
 
+
+// 예제 4-25
 public class JobLoggerListener {
 
 	private static String START_MESSAGE = "%s is beginning execution";

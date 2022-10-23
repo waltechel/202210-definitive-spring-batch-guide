@@ -23,6 +23,7 @@ import org.springframework.batch.core.annotation.BeforeStep;
 /**
  * @author Michael Minella
  */
+// 예제 4-44 스텝의 시작 및 종료 리스너에서 로깅하기
 public class LoggingStepStartStopListener {
 
 	@BeforeStep

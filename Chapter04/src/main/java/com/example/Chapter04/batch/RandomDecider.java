@@ -25,6 +25,7 @@ import org.springframework.batch.core.job.flow.JobExecutionDecider;
 /**
  * @author Michael Minella
  */
+// 예제 4-47 RandomDecider
 public class RandomDecider implements JobExecutionDecider {
 
 	private Random random = new Random();
