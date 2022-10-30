@@ -192,6 +192,80 @@ public class QuartzConfiguration{
 
 ---
 
+## 6.3 잡 중지하기
+
+### 6.3.1 자연스러운 완료
+
+### 6.3.2 프로그래밍적으로 중지하기
+
+#### 중지 트랜지션 사용하기
+
+#### StepExecution을 사용해 중지하기
+
+좀 더 효율적인 접근 방싱이 있다. AfterStep 대신에 BeforeStep을 사용하도록 변경해 StepExecution을 가져온다.
+
+### 6.3.3 오류 처리
+
+#### 잡 실패
+
+---
+
+## 6.4 재시작 제어하기
+
+### 6.4.1 잡의 재시작 방지하기
+
+```java
+@Bean
+public Job transactionJob() {
+    return this.jobBuilderFactory.get("transactionJob")
+                .preventRestart()
+                .start(importTransactionFileStep())
+                .next(applyTransactionStep())
+                .next(generateAccountSummaryStep())
+                .build();
+}
+```
+
+---
+
+### 6.4.2 재시작 횟수를 제한하도록 구성하기
+
+```java
+@Bean
+public Step importTransactionFileStep(){
+    return this.stepBuilderFactory.get("importTransactionFileStep")
+                .startLimit(2)
+                .<Transaction, Transaction>chunk(100)
+                .reader(transactionReader())
+                .writer(transactionWriter(null))
+                .allowStartIfComplete(true)
+                .listener(transactionReader())
+                .build();
+}
+```
+
+---
+
+### 6.4.3 완료된 스텝 재실행하기
+
+스프링 배치 특징 중 하나는 프레임워크를 사용하면 동일한 파라미터로 잡을 한 번만 성공적으로 실행할 수 있다는 점이다.
+
+```java
+@Bean
+public Step importTransactionFileStep(){
+    return this.stepBuilderFactory.get("importTransactionFileStep")
+                .allowStartIfComplete(true)
+                .<Transaction, Transaction>chunk(100)
+                .reader(transactionReader())
+                .writer(transactionWriter(null))
+                .allowStartIfComplete(true)
+                .listener(transactionReader())
+                .build();
+}
+```
+
+---
+
 ![bg](images/template_title.jpg)
 
 # 감사합니다!
