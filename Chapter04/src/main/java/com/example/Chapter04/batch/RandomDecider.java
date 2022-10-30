@@ -30,6 +30,7 @@ public class RandomDecider implements JobExecutionDecider {
 
 	private Random random = new Random();
 
+	@Override
 	public FlowExecutionStatus decide(JobExecution jobExecution,
 			StepExecution stepExecution) {
 
