@@ -22,6 +22,7 @@ import org.springframework.util.StringUtils;
 
 /**
  * @author Michael Minella
+ * a.csv 파일의 유효성을 검증하는 파라미터 유효성 검증기
  */
 public class ParameterValidator implements JobParametersValidator {
 

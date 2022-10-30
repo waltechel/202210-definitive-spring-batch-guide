@@ -32,6 +32,10 @@ public class HelloWorldTasklet implements Tasklet {
 	@Value("#{jobParameters['name']}")
 	private String name;
 
+	/**
+	 * contribution : 아직 커밋되지 않은 현재 트랜잭션에 대한 정보
+	 * chunkContext : 실행 시점의 잡 상태
+	 */
 	@Override
 	public RepeatStatus execute(StepContribution contribution,
 			ChunkContext chunkContext) {

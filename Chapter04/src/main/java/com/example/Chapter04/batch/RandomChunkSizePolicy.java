@@ -24,6 +24,7 @@ import org.springframework.batch.repeat.RepeatStatus;
 /**
  * @author Michael Minella
  */
+// 예제 4-42 랜덤하게 청크 크기를 지정하도록 작성한 CompletionPolicy 구현체
 public class RandomChunkSizePolicy implements CompletionPolicy {
 
 	private int chunksize;
@@ -36,8 +37,7 @@ public class RandomChunkSizePolicy implements CompletionPolicy {
 
 		if(RepeatStatus.FINISHED == result) {
 			return true;
-		}
-		else {
+		} else {
 			return isComplete(context);
 		}
 	}
@@ -52,8 +52,7 @@ public class RandomChunkSizePolicy implements CompletionPolicy {
 		this.chunksize = random.nextInt(20);
 		this.totalProcessed = 0;
 
-		System.out.println("The chunk size has been set to " +
-				this.chunksize);
+		System.out.println("The chunk size has been set to " + this.chunksize);
 
 		return parent;
 	}

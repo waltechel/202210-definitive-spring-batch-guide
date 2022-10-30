@@ -32,7 +32,6 @@ import org.springframework.context.annotation.Bean;
  * @author Michael Minella
  */
 @EnableBatchProcessing
-@SpringBootApplication
 public class JobJob {
 
 	@Autowired
@@ -90,6 +89,7 @@ public class JobJob {
 				.build();
 	}
 
+	// 예제 4-54 잡 스텝 사용하기
 	@Bean
 	public Step intializeBatch() {
 		return this.stepBuilderFactory.get("initalizeBatch")
@@ -126,7 +126,4 @@ public class JobJob {
 				.build();
 	}
 
-	public static void main(String[] args) {
-		SpringApplication.run(HelloWorldJob.class, args);
-	}
 }
