@@ -57,6 +57,8 @@ JobExecution
 
 - 잡 실행의 실제 시도
 - 각 JobExcecution은 BATCH_JOB_EXECUTION 테이블의 레코드로 저장된다.
+- 잡이 처음부터 끝까지 단번에 실행 완료됐다면 해당 JobInstance와 JobExecution은 단 하나씩만 존재한다.
+- 만약 첫 번째 잡 실행 후 오류 상태로 종료됐다면 해당 JobInstance를 실행하려고 시도할 때마다 새로운 JobExecution이 생성된다. 
 
 ---
 
@@ -64,11 +66,32 @@ JobExecution
 
 ### 4.2.1 잡의 기본 구성
 
+배치 스키마가 존재하지 않는다면 자동으로 배치 스키마를 생성하도록 어플리케이션을 구성했다.
+
+```properties
+spring.batch.initialize-schema=always
+```
+
 ### 4.2.2 잡 파라미터
+
+동일한 식별 파라미터를 사용해 동일한 잡을 두 번 이상 실행할 수 없다.
 
 #### 잡 파라미터에 접근하기
 
-- ChunkContext : 
+`@StepScope`, `@JobScope` 각각의 기능은 스텝의 실행 범위나 잡의 실행 범위에 들어갈 때까지 빈 생성을 지연시키는 것이다.
+
+#### 잡 파라미터 유효성 검증하기
+
+스프링 배치는 `org.springframework.batch.core.JobParameterValidator` 인터페이스를 구현하고 해당 구현체를 잡 내에 구현하면 된다. 
+
+---
+
+### 4.2.3 잡 리스너 적용하기
+
+리스너가 하는 일
+- 알림
+- 초기화
+- 정리 : 잡이 실행 이후에 정리 작업을 수행하는 경우
 
 #### 플로우 외부화하기
 
