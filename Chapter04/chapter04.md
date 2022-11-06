@@ -97,6 +97,8 @@ spring.batch.initialize-schema=always
 
 스텁을 외부화하는 다음 방법은 플로우 스텝을 사용하는 것이다.
 
+플로우를 사용하게 되면 추가적인 흐름을 파악할 수 있다.
+
 ---
 
 ![bg](images/template_title.jpg)
